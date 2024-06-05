@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryIndexResource extends JsonResource
+class ProductIndexResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,15 +17,12 @@ class CategoryIndexResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
+            'category_id' => $this->category_id,
             'name' => $this->name,
-            // 'description' => str($this->description)->limit(20),
-            'description' => $this->when($request->is('api/categories*'), function () use ($request) {
-                if ($request->is('api/categories')) {
-                    return str($this->description)->limit(20);
-                }
-                return $this->description;
-            }),
-            
+            'description' => $this->description,
+            'price' => number_format($this->price / 100, 2),
+            // 'category' => $this->category,
+            'category' => CategoryIndexResource::make($this->whenLoaded('category')),
         ];
     }
 }

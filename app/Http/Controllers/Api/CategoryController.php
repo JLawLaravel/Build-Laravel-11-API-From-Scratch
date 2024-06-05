@@ -22,7 +22,7 @@ class CategoryController extends Controller
     }
 
     public function list() {
-        return CategoryListResource::collection(Category::all());
+        return CategoryIndexResource::collection(Category::all());
     }
 
     /**
