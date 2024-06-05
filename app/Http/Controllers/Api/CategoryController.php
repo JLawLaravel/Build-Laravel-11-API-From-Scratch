@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryIndexResource;
+use App\Http\Resources\CategoryListResource;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\CategoryShowResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -15,11 +18,11 @@ class CategoryController extends Controller
     public function index()
     {
         // return Category::all();
-        return CategoryResource::collection(Category::all());
+        return CategoryIndexResource::collection(Category::all());
     }
 
     public function list() {
-        return CategoryResource::collection(Category::all());
+        return CategoryListResource::collection(Category::all());
     }
 
     /**
@@ -38,7 +41,8 @@ class CategoryController extends Controller
         Category::find($category->id);
 
         // return $category;
-        return new CategoryResource($category);
+        // return new CategoryShowResource($category);
+        return CategoryShowResource::make($category);
     }
 
     /**
