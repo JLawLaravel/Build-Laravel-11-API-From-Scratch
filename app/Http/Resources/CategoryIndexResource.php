@@ -25,6 +25,7 @@ class CategoryIndexResource extends JsonResource
                 }
                 return $this->description;
             }),
+            'photo' => $this->photo,
             
         ];
     }
